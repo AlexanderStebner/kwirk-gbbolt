@@ -51,7 +51,7 @@ python ../gbbolt/tools/gbbolt.py            # build, verify, write out/site/inde
 ```
 
 The build is checked against the SHA1 of the original ROM
-(`6ef48e912a47c774048456aa870c7e810fd45685`, the Acclaim release of *Kwirk*, version 0). No ROM is needed to
+(`6ef48e912a47c774048456aa870c7e810fd45685`, *Kwirk - He's A-maze-ing! (USA, Europe)*). No ROM is needed to
 build it. If you put your own dump next to `game.json` as `kwirk.gb`, it is compared
 byte by byte.
 
