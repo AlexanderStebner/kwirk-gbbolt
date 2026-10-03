@@ -1,0 +1,48 @@
+{
+  "_doc": "How tools/audio.py drives Kwirk's sound engine. RAM names come from ram.inc. One queue for everything: QueueSound (rst $30) puts an id into wSoundQueue and UpdateSound (once a frame, from the VBlank handler) starts one queued sound per frame. A sound is a header in Sounds of (channel, stream) pairs: channels 0-3 are the music voices, 4-7 the sound effects that take over the same four voices while they play.",
+  "init": "InitSound",
+  "update": "UpdateSound",
+  "_power_on": "InitSound turns the wave DAC on (rNR30 $80); wave RAM starts out as TriangleWave: the music loads it (command $FC on the wave voice) before any wave effect plays, and a wave effect's own $FC does not load anything",
+  "power_on": [["rNR52", 128], ["rNR51", 255], ["rNR50", 119], ["rNR30", 128],
+               ["0xFF30", 1], ["0xFF31", 35], ["0xFF32", 69], ["0xFF33", 103],
+               ["0xFF34", 137], ["0xFF35", 171], ["0xFF36", 205], ["0xFF37", 239],
+               ["0xFF38", 254], ["0xFF39", 220], ["0xFF3A", 186], ["0xFF3B", 152],
+               ["0xFF3C", 118], ["0xFF3D", 84], ["0xFF3E", 50], ["0xFF3F", 16]],
+  "stack": "0xDCFF",
+  "kinds": {
+    "music": {"label": "Music", "request": "wSoundQueue", "count": "wSoundQueueCount",
+              "_playing": "byte 0 bit 0 of the music channels 0-3",
+              "playing": ["0xDF00", "0xDF10", "0xDF20", "0xDF30"], "playing_mask": 1,
+              "ids": {"list": [1, 2, 3, 4, 5]}, "loops": true, "max_seconds": 150},
+    "sfx": {"label": "Sound effects", "request": "wSoundQueue", "count": "wSoundQueueCount",
+            "_playing": "byte 0 bit 0 of the effect channels 4-7",
+            "playing": ["0xDF40", "0xDF50", "0xDF60", "0xDF70"], "playing_mask": 1,
+            "ids": [8, 19], "max_seconds": 8}
+  },
+  "effect_channels": {"sfx": [0, 1, 2, 3]},
+  "names": {
+    "music 1": ["Going Up (MusicGoingUp)", "PlayRoom (GOING UP?), EndMenu"],
+    "music 2": ["Heading Out (MusicHeadingOut)", "PlayRoom (HEADING OUT? and VS MODE)"],
+    "music 3": ["Menus (MusicMenu)", "MainMenu, EndMenu, CheckRoomCleared, ContestEnd, ContestNextGame"],
+    "music 4": ["Cleared jingle (MusicCleared)", "FlashOrNextRoom, CourseCleared, VsOpponentCleared"],
+    "music 5": ["Title (MusicTitle)", "TitleScreen"],
+    "sfx 8": ["Step (SfxStep)", "TryStep"],
+    "sfx 9": ["Blocked (SfxBlocked)", "TryStep"],
+    "sfx 10": ["Push a block (SfxPushBlock)", "TryStep (wStepKind 1)"],
+    "sfx 11": ["Block falls into a hole (SfxBlockInHole)", "FillHoles"],
+    "sfx 12": ["Turnstile (SfxTurnstile)", "TryStep (wStepKind 2)"],
+    "sfx 13": ["Cursor (SfxCursor)", "MenuMoveCursor, CourseMenu"],
+    "sfx 14": ["Switch character (SfxSwitchChar)", "GoingUpButtons (Select)"],
+    "sfx 15": ["Pause (SfxPause)", "PauseWindow"],
+    "sfx 16": ["Choose (SfxChoose)", "MenuChoose (A, Start), CourseMenu"],
+    "sfx 17": ["Cancel (SfxCancel)", "MenuChoose (B), CourseMenu"],
+    "sfx 18": ["Stairs (SfxStairs)", "CheckStairs, ScrollToNextRoom, SerialInterrupt"],
+    "sfx 19": ["Give up the room (SfxGiveUp)", "HeadingOutButtons (A), SerialInterrupt"]
+  },
+  "loop_frames": {
+    "_doc": "[update where the loop starts, update where it jumps back] (from the closing $F8 jump of each voice)",
+    "music 1": [193, 2497],
+    "music 2": [193, 1729],
+    "music 3": [31, 511]
+  }
+}

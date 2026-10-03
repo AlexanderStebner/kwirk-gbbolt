@@ -1,0 +1,55 @@
+# Virtual folders, in reading order: path | description
+# Functions say where they live with `;@ path: folder/sub`; data blocks without a
+# path go to the folder of the functions that use them.
+system | Power-on, interrupts and the hardware services used everywhere.
+system/vectors | The fixed addresses the CPU jumps to: restarts and interrupt vectors.
+system/boot | Power-on: clearing RAM, setting up the hardware, the jump to the title screen.
+system/interrupts | The interrupt handlers' entry points.
+system/lcd | Switching the LCD off and on, the OAM DMA routine in HRAM.
+system/input | Reading the joypad.
+lib | Small general routines (some of them come from the same library as Tetris).
+lib/memory | Copying and filling memory blocks, saving and loading scratch pointers.
+lib/math | Adding to HL, multiplying and dividing.
+lib/timing | Busy-wait delays and frame waits.
+lib/unused | Library code that is in the ROM but never called.
+gfx | Getting things onto the screen.
+gfx/tiles | Loading tile graphics into VRAM.
+gfx/tilemaps | Background maps: whole screens, boxes, single tiles in HBlank.
+gfx/text | Printing the texts (tile strings with a newline and an end byte).
+gfx/sprites | Sprites in the shadow OAM.
+gfx/scroll | Split-screen scrolling: only the room rows move when the next room slides in.
+title | The title screen and its link-cable offer.
+title/demo | The attract-mode demo: five HEADING OUT? rooms played from d-pad steps in the ROM.
+ui/menu | The menu chooser: cursor, rows and columns, the link partner's choice.
+game | Playing Kwirk: GOING UP? floors, HEADING OUT? courses and VS MODE.
+game/menu | The menus before a game: game, skill, floor, display, course length, contest.
+game/level | Starting a game: picking the room, the screen, the START prompt.
+game/loop | The game loop: one frame of play, then wait for VBlank.
+game/input | What the buttons do in each mode: move, switch character, give up, pause.
+game/move | A step: what is in the way, pushing, the 8 frames of sliding.
+game/character | The characters: their squares, sprites and animation.
+game/objects | Blocks and turnstiles that move: lifted out as sprites, put back, holes filled.
+game/turnstile | Turning a turnstile: which arms sweep where, and what blocks them.
+game/undo | The undo ring of GOING UP? (BACK in the pause window).
+game/pause | The pause window: REDO, END and BACK.
+game/room | Room state: stairs, corridor exits, the room cleared.
+game/clear | Clearing a floor: the flashing, the next room.
+game/course | HEADING OUT? courses: dealing random rooms, scrolling to the next one.
+game/panel | The panels beside and below the room: level, floor, rooms left, the bar.
+game/score | The score, the bonus and the step count in BCD.
+game/results | YOU DID IT, the ranking, the contest scores, the scenes at Kwirk's house.
+room | Building a room from the ROM's room data.
+room/build | The room header, the bit map in RoomBits, the corridors of HEADING OUT?.
+room/objects | The object stream in RoomObjects: walls, characters, blocks, holes, stairs, turnstiles.
+room/walls | Giving each wall cell its tile from its neighbours.
+room/mirror | Turning a HEADING OUT? room upside down.
+room/screen | The room's tile buffer to the BG map.
+link | The link cable: VS MODE for two Game Boys.
+link/serial | The serial interrupt and sending bytes.
+link/vblank | The link handlers the VBlank interrupt runs, one per bit of wLinkState.
+link/menu | Agreeing on the menus over the cable.
+link/vs | Starting and ending a VS game.
+sound | The sound engine: 5 songs and 12 sound effects on 8 channels (4 music, 4 effects).
+sound/queue | Asking for a sound.
+sound/engine | Starting a sound and updating every channel once a frame.
+sound/engine/commands | The commands in a channel's stream: envelope, duty, repeats, calls, jumps, the wave.

@@ -1,0 +1,33 @@
+{
+  "_doc": "Facts about this game that the gbbolt tools need. Names are labels / RAM names of the disassembly.",
+  "id": "kwirk",
+  "rom": "kwirk.gb",
+  "sha1": "6ef48e912a47c774048456aa870c7e810fd45685",
+  "title": "KWIRK",
+  "publisher": "Acclaim",
+  "year": 1989,
+  "main": "game.asm",
+  "link_flags": [
+    "--tiny"
+  ],
+  "fix_flags": [
+    "-v",
+    "-p",
+    "255"
+  ],
+  "test_memory": {
+    "stack_top": "0xDF00",
+    "stack_zone": [
+      "0xDE00",
+      "0xDF00"
+    ],
+    "free_ram": [
+      "0xC000",
+      "0xDE00"
+    ]
+  },
+  "tile_addressing": "8800",
+  "entry": "Boot",
+  "bgp": "0x9C",
+  "thumbnail": "gen/demo_replay_title.png"
+}
