@@ -1,7 +1,7 @@
 # From power-on to the first stairs
 
-A quick tour: what the code does between switching the Game Boy on and Kwirk the tomato
-climbing the stairs of floor 1. Every name is a link: follow whatever looks fun.
+What the code does between switching the Game Boy on and Kwirk the tomato climbing the
+stairs of floor 1, in the order it happens.
 
 ## Power on
 
@@ -21,8 +21,9 @@ real 2-bit tiles on the way into VRAM.
 
 ## There is no main loop
 
-Tetris and Dr. Mario run a state machine: one handler per frame. Kwirk doesn't. It is one
-long thread of ordinary code that calls `WaitVBlank` whenever it wants the next frame.
+Many games are built around a main loop that runs one state handler per frame. Kwirk
+has none: the whole game is one long thread of ordinary code, which calls `WaitVBlank`
+whenever it wants the next frame.
 
 Meanwhile the `VBlankHandler` does the per-frame work behind its back:
 
