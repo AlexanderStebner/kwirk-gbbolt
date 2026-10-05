@@ -4,7 +4,7 @@
 
 A complete, matching disassembly of *Kwirk* for the Game Boy (Atlus / Acclaim, 1989),
 with pseudo-code written next to every function and checked against the original code
-in an emulator. It is read with [gbbolt](https://github.com/AlexanderStebner/gbbolt):
+in an emulator. It is read with [gbbolt](https://github.com/gbbolt/gbbolt):
 code and pseudo-code side by side, linked line by line.
 
 - **300 of 300 functions** have pseudo-code. 140 are verified by differential testing:
@@ -43,8 +43,8 @@ The disassembly rebuilds the original ROM byte for byte. You need
 folder:
 
 ```
-git clone https://github.com/AlexanderStebner/gbbolt
-git clone https://github.com/AlexanderStebner/kwirk-gbbolt
+git clone https://github.com/gbbolt/gbbolt
+git clone https://github.com/gbbolt/kwirk-gbbolt
 cd kwirk-gbbolt
 python ../gbbolt/tools/audio.py             # render the music (needs ffmpeg)
 python ../gbbolt/tools/gbbolt.py            # build, verify, write out/site/index.html
